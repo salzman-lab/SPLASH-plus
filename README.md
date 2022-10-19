@@ -29,7 +29,13 @@ To learn more about outputs, please see `docs/output.md`.
 3. Create your `--fastq_samplesheet`, and run the pipeline:
 
    ```console
-   nextflow run The-Salzman-Lab/compactors --fastq_samplesheet samplesheet.csv --anchors_file anchors.txt -profile test,YOURPROFILE --outdir <OUTDIR>
+   nextflow run The-Salzman-Lab/compactors \
+       -r main \
+       -latest \
+       -profile test,YOURPROFILE \
+       --fastq_samplesheet samplesheet.csv \
+       --anchors_file anchors.txt \
+       --outdir <OUTDIR>
    ```
 
    Note that some form of configuration will be needed so that Nextflow knows how to fetch the required software. This is usually done in the form of a config profile (`YOURPROFILE` in the example command above). You can chain multiple config profiles in a comma-separated string.
