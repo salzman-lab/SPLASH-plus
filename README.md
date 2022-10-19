@@ -29,7 +29,7 @@ To learn more about outputs, please see `docs/output.md`.
 3. Create your `--fastq_samplesheet`, and run the pipeline:
 
    ```console
-   nextflow run The-Salzman-Lab/compactors \
+   nextflow run salzmanlab/compactors \
        -r main \
        -latest \
        -profile test,YOURPROFILE \
@@ -48,7 +48,7 @@ To learn more about outputs, please see `docs/output.md`.
 
 ## Documentation
 
-The The-Salzman-Lab/compactors pipeline comes with documentation about the pipeline [usage](https://nf-co.re/compactors/usage), [parameters](https://nf-co.re/compactors/parameters) and [output](https://nf-co.re/compactors/output).
+The salzmanlab/compactors pipeline comes with documentation about the pipeline [usage](https://nf-co.re/compactors/usage), [parameters](https://nf-co.re/compactors/parameters) and [output](https://nf-co.re/compactors/output).
 
 ## Credits
 
