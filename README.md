@@ -1,12 +1,13 @@
 
 
+
+# This pipeline is currently in development in private mode.
+# To be able to run this private pipeline, please follow these instructions to configure: https://www.nextflow.io/blog/2021/configure-git-repositories-with-nextflow.html
+
 ## Introduction
-
-
-(All nf-core refs are temporary, please disregard.)
 <!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
 
-**compactors** is a bioinformatics best-practice analysis pipeline for pass.
+**nf-compactors** is a bioinformatics best-practice analysis pipeline for pass.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
@@ -16,7 +17,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 ## Pipeline summary
 
-
+To learn more about usage, please see `docs/usage.md`.
+To learn more about outputs, please see `docs/output.md`.
 
 ## Quick Start
 
@@ -27,7 +29,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 3. Create your `--fastq_samplesheet`, and run the pipeline:
 
    ```console
-   nextflow run salzmanlab/nf-compactors --fastq_samplesheet samplesheet.csv --anchors_file anchors.txt -profile test,YOURPROFILE --outdir <OUTDIR>
+   nextflow run The-Salzman-Lab/compactors --fastq_samplesheet samplesheet.csv --anchors_file anchors.txt -profile test,YOURPROFILE --outdir <OUTDIR>
    ```
 
    Note that some form of configuration will be needed so that Nextflow knows how to fetch the required software. This is usually done in the form of a config profile (`YOURPROFILE` in the example command above). You can chain multiple config profiles in a comma-separated string.
@@ -40,7 +42,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 ## Documentation
 
-The salzmanlab/nf-compactors pipeline comes with documentation about the pipeline [usage](https://nf-co.re/compactors/usage), [parameters](https://nf-co.re/compactors/parameters) and [output](https://nf-co.re/compactors/output).
+The The-Salzman-Lab/compactors pipeline comes with documentation about the pipeline [usage](https://nf-co.re/compactors/usage), [parameters](https://nf-co.re/compactors/parameters) and [output](https://nf-co.re/compactors/output).
 
 ## Credits
 

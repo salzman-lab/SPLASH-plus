@@ -57,8 +57,10 @@ workflow COMPACTORS {
         .fromPath(params.fastq_samplesheet)
         .splitCsv(header: false)
         .map{ row ->
-            def f = file(row[0], checkIfExists: true)
-            return tuple(f.simpleName, f)
+            tuple(
+                file(row[0]).simpleName,
+                file(row[0])
+            )
         }
 
     /*

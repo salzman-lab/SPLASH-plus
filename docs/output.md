@@ -1,4 +1,4 @@
-# salzmanlab/nf-compactors: Output
+# The-Salzman-Lab/compactors: Output
 
 ## Introduction
 

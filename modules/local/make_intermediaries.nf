@@ -1,6 +1,6 @@
 process MAKE_INTERMEDIARIES {
 
-    tag "${fastq.simpleName}"
+    // tag "${fastq.simpleName}"
     label "process_medium"
 
     input:

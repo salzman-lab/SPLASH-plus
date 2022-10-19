@@ -1,4 +1,4 @@
-# nf-compactors: Usage
+# compactors: Usage
 
 ## Introduction
 
@@ -20,6 +20,7 @@ Note that, unless specified, these parameters will use the defaults described be
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `anchor_length`  | Length of anchor sequence (default: 27). |
 | `num_reads` | Number of reads to parse from each FASTQ (default: 1000000). |
+| `buffer_size` | Batch size of intermediate files to use per compactor generation step (default: 50). |
 | `max_anchor_reads` | Maximum reads to parse for each anchor sequence (default: 200). |
 | `epsilon` | Episilon in compactor generation (default: 0.10) |
 | `branch_threshold` | Threshold for compactor branching in compactor generation (deafult: 20). |
@@ -32,7 +33,7 @@ Note that, unless specified, these parameters will use the defaults described be
 The typical command for running the pipeline is as follows:
 
 ```console
-nextflow run salzmanlab/nf-compactors --fastq_samplesheet samplesheet.csv --anchors_file anchors.txt --outdir <OUTDIR> -profile docker
+nextflow run The-Salzman-Lab/compactors --fastq_samplesheet samplesheet.csv --anchors_file anchors.txt --outdir <OUTDIR> -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -51,14 +52,14 @@ work                 Directory containing the nextflow working files
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
 
 ```console
-nextflow pull salzmanlab/nf-compactors
+nextflow pull The-Salzman-Lab/compactors
 ```
 
 ### Reproducibility
 
 It is a good idea to specify a pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 
-First, go to the [compactors releases page](https://github.com/salzmanlab/compactors/releases) and find the latest version number - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`.
+First, go to the [compactors releases page](https://github.com/The-Salzman-Lab/compactors/releases) and find the latest version number - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`.
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future.
 

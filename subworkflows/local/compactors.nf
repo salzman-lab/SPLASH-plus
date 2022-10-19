@@ -6,12 +6,13 @@ workflow GET_COMPACTORS {
     ch_fastqs
 
     main:
+
     /*
     // Process: For each FASTQ file, make intermediary files
     */
     MAKE_INTERMEDIARIES(
         ch_fastqs,
-        params.anchors_file,
+        file(params.anchors_file),
         params.anchor_length,
         params.num_reads,
         params.max_anchor_reads
@@ -30,7 +31,7 @@ workflow GET_COMPACTORS {
             ["${anchor}.intermediary", intermediary]
         }
         .buffer(
-            size: 80,
+            size: params.buffer_size,
             remainder: true
         )
 
