@@ -1,4 +1,4 @@
-# nf-core/compactors: Citations
+# nf-compactors: Citations
 
 ## [nf-core](https://pubmed.ncbi.nlm.nih.gov/32055031/)
 

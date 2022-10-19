@@ -1,5 +1,5 @@
 //
-// This file holds several functions specific to the main.nf workflow in the nf-core/compactors pipeline
+// This file holds several functions specific to the main.nf workflow in the salzmanlab/nf-compactors pipeline
 //
 
 class WorkflowMain {
@@ -72,11 +72,11 @@ class WorkflowMain {
         // Check AWS batch settings
         NfcoreTemplate.awsBatch(workflow, params)
 
-        // Check input has been provided
-        if (!params.input) {
-            log.error "Please provide an input samplesheet to the pipeline e.g. '--input samplesheet.csv'"
-            System.exit(1)
-        }
+        // // Check input has been provided
+        // if (!params.input) {
+        //     log.error "Please provide an input samplesheet to the pipeline e.g. '--input samplesheet.csv'"
+        //     System.exit(1)
+        // }
     }
 
     //

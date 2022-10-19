@@ -6,3 +6,7 @@ results/
 testing/
 testing*
 *.pyc
+*sbatch
+test_fastq_samplesheet.csv
+*.out
+*.err
