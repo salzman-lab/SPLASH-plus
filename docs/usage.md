@@ -11,7 +11,7 @@ Current pipeline schematic:
 
 ### `--fastq_samplesheet`
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a file with 1 column and no header row. Each row should contain the full path to
+You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a file with 1 column and no header row. Each row should contain the full path to a gzipped-FASTQ file.
 
 
 ### `--anchors_file`
