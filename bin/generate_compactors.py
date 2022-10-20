@@ -306,7 +306,7 @@ def main():
     warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
 
     # Initialize sample contribution file.
-    fastq_samplesheet = pd.read_csv(args.fastq_samplesheet, names=['fastq'])
+    fastq_samplesheet = pd.read_csv(args.fastq_samplesheet, names=['fastq'], usecols=[0])
     fastq_ids = (
         fastq_samplesheet['fastq']
         .apply(os.path.basename)
