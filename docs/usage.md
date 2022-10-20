@@ -3,7 +3,7 @@
 ## Introduction
 
 Current pipeline schematic:
-!(pipeline_schema)(https://github.com/salzman-lab/compactors/blob/main/assets/compactors.jpeg)
+![pipeline_schema](https://github.com/salzman-lab/compactors/blob/main/assets/compactors.jpeg)
 
 <!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
 
