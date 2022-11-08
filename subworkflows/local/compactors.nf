@@ -1,5 +1,6 @@
-include { MAKE_INTERMEDIARIES } from '../../modules/local/make_intermediaries'
-include { GENERATE_COMPACTORS } from '../../modules/local/generate_compactors'
+include { MAKE_INTERMEDIARIES       } from '../../modules/local/make_intermediaries'
+include { CONCAT_INTERMEDIARIES     } from '../../modules/local/concat_intermediaries'
+include { GENERATE_COMPACTORS       } from '../../modules/local/generate_compactors'
 
 workflow GET_COMPACTORS {
     take:
@@ -26,20 +27,31 @@ workflow GET_COMPACTORS {
             def anchor = intermediary.simpleName.toString().tokenize('_')[0]
             return tuple(anchor, file(intermediary))
         }
-        .collectFile(keepHeader: false, storeDir: "${params.outdir}/intermediary"){
-            anchor, intermediary ->
-            ["${anchor}.intermediary", intermediary]
+        .groupTuple()
+        .map{ it ->
+            return tuple(it[0], it[1].flatten())
         }
+
+    /*
+    // Process: Create intermediary file per anchor
+    */
+    CONCAT_INTERMEDIARIES(
+        ch_intermediaries
+    )
+
+    // Chunk for processing
+    ch_anchor_intermediaries = CONCAT_INTERMEDIARIES.out.intermediary
         .buffer(
             size: params.buffer_size,
             remainder: true
         )
+        .view()
 
     /*
     // Process: For each intermediary file, generate compactors
     */
     GENERATE_COMPACTORS(
-        ch_intermediaries,
+        ch_anchor_intermediaries,
         file(params.fastq_samplesheet),
         params.anchor_length,
         params.epsilon,
