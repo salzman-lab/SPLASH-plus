@@ -116,7 +116,7 @@ def make_intermediaries(anchor_list, args):
         with open(f"{anchor}_{args.fastq_id}.intermediary", 'a') as anchor_log:
             for item in read_dictionary[anchor]:
                 anchor_log.write(item)
-        logging.info(f"\tDone with {anchor}.")
+        logging.info(f"\tDone with {anchor}, wrote out {len(read_dictionary[anchor])} items.")
     logging.info("Finished writing out.")
 
     return
