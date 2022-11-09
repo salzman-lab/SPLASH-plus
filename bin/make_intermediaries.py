@@ -110,11 +110,14 @@ def make_intermediaries(anchor_list, args):
         end_time = time.time() - start_time
         logging.info(f"{args.fastq}\t{local_reads}\t{written_reads}\t{end_time}")
 
+    logging.info("Starting to write out.")
     # Write the resulting read lists to the appropriate intermediate files.
     for anchor in read_dictionary.keys():
         with open(f"{anchor}_{args.fastq_id}.intermediary", 'a') as anchor_log:
             for item in read_dictionary[anchor]:
                 anchor_log.write(item)
+        logging.info(f"\tDone with {anchor}.")
+    logging.info("Finished writing out.")
 
     return
 
