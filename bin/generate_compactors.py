@@ -138,12 +138,13 @@ def mallorn_2(dataframe, anchor_length, epsilon, N, recursive_depth, step, count
     # Compute proportions of sum.
     proportions = counts / np.sum(counts)
 
-    # Identify for which nucleotides both conditions are true.
+    # Identify for which nucleotides both conditions are true. Commented out is a second set of thresholds. 
     bools = [counts[i] >= N and proportions[i] >= epsilon for i in np.arange(5)]
-    bools_except = [counts[i] >= 5 and proportions[i] >= 0.8 for i in np.arange(5)]
+    #bools_except = [counts[i] >= 5 and proportions[i] >= 0.8 for i in np.arange(5)]
 
     for i in np.arange(5):
-        bools[i] = max(bools[i], bools_except[i])
+        #bools[i] = max(bools[i], bools_except[i])
+        bools[i] = max(bools[i])
 
     # Case in which no nucleotides pass thresholds; propogate most abundant anchor.
     # If this happens, we put 'X' in the decision path, rather than nucleotide abundance rank.
