@@ -72,6 +72,10 @@ def mallorn_2(dataframe, anchor_length, epsilon, N, recursive_depth, step, count
             valid_index = sans_threshold / 2
             consensus_leaf = consensus_majority[:int(len(anchor_leaf) + valid_index)]
 
+        # Terminate if compactor is unsupported. 
+        if not dataframe[dataframe[‘sequence’].str.contains(compactor_leaf)].shape[0]:
+            return
+        
         # Get the total anchors at root.
         anchor_sum = count_dictionary[anchor_leaf]
 
@@ -142,21 +146,23 @@ def mallorn_2(dataframe, anchor_length, epsilon, N, recursive_depth, step, count
     bools = [counts[i] >= N and proportions[i] >= epsilon for i in np.arange(5)]
     #bools_except = [counts[i] >= 5 and proportions[i] >= 0.8 for i in np.arange(5)]
 
-    for i in np.arange(5):
+    #for i in np.arange(5):
         #bools[i] = max(bools[i], bools_except[i])
-        bools[i] = max(bools[i])
+        #bools[i] = max(bools[i])
 
     # Case in which no nucleotides pass thresholds; propogate most abundant anchor.
     # If this happens, we put 'X' in the decision path, rather than nucleotide abundance rank.
     if np.sum(bools) == 0 or taken_valid_abundance:
         dataframe.loc[:,'consensus'] = [dataframe['consensus'][i] + reverse_utility[np.argmax(counts)] for i in dataframe.index.tolist()]
         dataframe.loc[:,'path'] = [dataframe['path'][i] + 'X-' for i in dataframe.index.tolist()]
+        curr_consensus = dataframe['consensus'][dataframe.index.tolist()[0]][:-1]
+        if not dataframe[dataframe[‘sequence’].str.contains(curr_consensus)].shape[0]:
+            return
         # If we are encountering a failed threshold check for the first time.
         if not taken_valid_abundance:
             # Compute the by-sample vote.
             sample_counts = dict(dataframe['sample'].value_counts())
             sample_columns = pd.read_csv('sample_specificity.tsv', engine='python', sep='\t', nrows=0).columns.tolist()[2:][:-1]
-            curr_consensus = dataframe['consensus'][dataframe.index.tolist()[0]]
             curr_anchor = curr_consensus[:anchor_length]
             stork = curr_anchor + '\t' + curr_consensus + '\t'
             for column in sample_columns:
