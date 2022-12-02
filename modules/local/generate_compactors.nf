@@ -11,11 +11,11 @@ process GENERATE_COMPACTORS {
     val recursive_depth
 
     output:
-    path "sample_specificity.tsv"   , emit: sample_specificity
-    path "compactor.fasta"          , emit: compactors_fasta
-    path "spindles.fasta"           , emit: spindles_fasta
-    path "compactor_summary.tsv"    , emit: compactor_summary
-    path "*.compactor"              , emit: compactor
+    path "sample_specificity.tsv"   , emit: sample_specificity  , optional: true
+    path "compactor.fasta"          , emit: compactors_fasta    , optional: true
+    path "spindles.fasta"           , emit: spindles_fasta      , optional: true
+    path "compactor_summary.tsv"    , emit: compactor_summary   , optional: true
+    path "*.compactor"              , emit: compactor           , optional: true
 
     script:
     """
