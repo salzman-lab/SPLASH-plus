@@ -92,7 +92,7 @@ def mallorn_2(dataframe, anchor_length, epsilon, N, recursive_depth, step, count
         if not taken_valid_abundance:
             # Compute the by-sample vote.
             sample_counts = dict(dataframe['sample'].value_counts())
-            sample_columns = pd.read_csv('sample_specificity.tsv', engine='python', sep='\t', nrows=0).columns.tolist()[2:]
+            sample_columns = pd.read_csv('sample_specificity.tsv', engine='python', sep='\t', index_col=0, nrows=0).columns.tolist()[1:]
             curr_consensus = dataframe['consensus'][dataframe.index.tolist()[0]]
             curr_anchor = curr_consensus[:anchor_length]
             stork = curr_anchor + '\t' + curr_consensus + '\t'
@@ -162,7 +162,7 @@ def mallorn_2(dataframe, anchor_length, epsilon, N, recursive_depth, step, count
         if not taken_valid_abundance:
             # Compute the by-sample vote.
             sample_counts = dict(dataframe['sample'].value_counts())
-            sample_columns = pd.read_csv('sample_specificity.tsv', engine='python', sep='\t', nrows=0).columns.tolist()[2:]
+            sample_columns = pd.read_csv('sample_specificity.tsv', engine='python', sep='\t', index_col=0, nrows=0).columns.tolist()[1:]
             curr_anchor = curr_consensus[:anchor_length]
             stork = curr_anchor + '\t' + curr_consensus + '\t'
             for column in sample_columns:
