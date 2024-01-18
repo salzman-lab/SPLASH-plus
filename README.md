@@ -3,18 +3,13 @@
 ## Introduction
 <!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
 
-**nf-compactors** is a pipeline designed to run the local assembly tool, compactors.
+**nf-compactors** is a pipeline designed to run the seed-based assembly tool, compactors. Given a set of seeds (i.e. 'anchors' from SPLASH) and a FASTQ list, compactors analyzes the sequence composition directly to the right of the seed across the raw FASTQs. Compactors evaluates the sequence composition at each position to the right of the seed for whether the nucleotides appearing at that position constitute noise or biological signal. The resulting assembled sequences (also called compactors) are reported with their overall read counts in `compactor_summary.tsv` and their read counts in individual samples are presented in `sample_specificity.tsv`.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules).
 
 <!-- TODO nf-core: Add full-sized test dataset and amend the paragraph below if applicable -->
 
 On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources. The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/compactors/results).
-
-## Pipeline summary
-
-To learn more about usage, please see `docs/usage.md`.
-To learn more about outputs, please see `docs/output.md`.
 
 ## Quick Start
 
@@ -44,13 +39,13 @@ To learn more about outputs, please see `docs/output.md`.
 
 ## Documentation
 
-The salzmanlab/compactors pipeline comes with documentation about the pipeline [usage](https://nf-co.re/compactors/usage), [parameters](https://nf-co.re/compactors/parameters) and [output](https://nf-co.re/compactors/output).
+________________
 
 ## Credits
 
 compactors was originally written by salzmanlab.
 
-We thank the following people for their extensive assistance in the development of this pipeline:
+We thank the following people for their extensive assistance in the development of this pipeline: George Henderson, Kaitlin Chaung, Roozbeh Dehghannasiri. 
 
 <!-- TODO nf-core: If applicable, make list of people who have also contributed -->
 
