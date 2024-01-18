@@ -17,7 +17,7 @@
 - `sample_specificity.tsv`
   - Counts matrix of anchor-compactor by FASTQ file
 - `spindles.fasta`
-  - FASTA file of spindle sequences
+  - FASTA file of spindle sequences. Spindles are extensions of compactors which are not based on statistical criteria, but simply based upon the most frequent nucleotide at each position investigated downtream of the anchor. 
 
 
 [Nextflow](https://www.nextflow.io/docs/latest/tracing.html) provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.
