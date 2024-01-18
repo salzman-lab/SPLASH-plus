@@ -1,8 +1,4 @@
-
-
-
-# This pipeline is currently in development in private mode.
-# To be able to run this private pipeline, please follow these instructions to configure: https://www.nextflow.io/blog/2021/configure-git-repositories-with-nextflow.html
+# To be able to run this pipeline, please follow these instructions to configure: https://www.nextflow.io/blog/2021/configure-git-repositories-with-nextflow.html
 
 ## Introduction
 <!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
