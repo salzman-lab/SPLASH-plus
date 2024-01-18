@@ -1,14 +1,4 @@
-# salzmanlab/compactors: Output
-
-## Introduction
-
-
-
-## Pipeline overview
-
-
-
-## Output Files
+# salzmanlab/compactors: Output Files
 
 - `compactor.fasta`
   - FASTA file of compactor sequences
