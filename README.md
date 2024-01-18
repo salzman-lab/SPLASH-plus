@@ -43,7 +43,7 @@ ________________
 
 ## Credits
 
-compactors was originally written by salzmanlab.
+compactors was originally written by George Henderson and Kaitlin Chaung.
 
 We thank the following people for their extensive assistance in the development of this pipeline: George Henderson, Kaitlin Chaung, Roozbeh Dehghannasiri. 
 
