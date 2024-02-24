@@ -1,3 +1,6 @@
+# SPLASH+
+
+![image](https://github.com/salzman-lab/SPLASH-plus/blob/main/SPLASH_plus.png)
 # To be able to run this pipeline, please follow these instructions to configure: https://www.nextflow.io/blog/2021/configure-git-repositories-with-nextflow.html
 
 ## Introduction
