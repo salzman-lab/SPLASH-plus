@@ -10,11 +10,11 @@ SPLASH+ pipeline consists of 3 main steps:
 2. `Compactors`: for de novo local assembly of sequences called by SPLASH
 3. `Biological interpretation`: to assign a biologically-relevant event (single base pair change, alternative splicing, ...) accounting for the observed sequence diversity.   
 
-## 1- SPLASH
+### 1- SPLASH
 ![Image of SPLASH](https://github.com/salzman-lab/SPLASH-plus/blob/main/SPLASH.png)
 SPLASH can be run on an input set of fastq files by following the steps in https://github.com/salzman-lab/SPLASH. After running SPLASH, the output file will be a list of significant anchors (we refer to it as `anchors.txt` in this readme), where each anchor is associated with a set of statistically-significant sample-dependent target sequences. `anchors.txt` will then be used in the next step (Compactors) to perform a local de novo assembly and obtain extended sequences for each called anchor to facilitate and improve biological interpretation.  
 
-## 2- Compactors
+### 2- Compactors
 ![Image of Compactor](https://github.com/salzman-lab/SPLASH-plus/blob/main/Compactor.png)
 Compactors tests the sequence composition at each position to the right of each seed to evaluate whether the nucleotides presented at that position constitute noise or biological signal. This test is applied recursively on read sets, resulting in one or multiple assembled sequences (compactors) for each called anchor. The compactor step is implemented in a fully-containerized Nextflow pipeline (**nf-compactors**) with minimal installation requirements. 
 
@@ -26,7 +26,7 @@ After running Compactors, two output files will be generated:
 1. `compactor_summary.tsv`: Contains the resulting assembled sequences (compactors) for each significant significant anchor. This file will then be used in the next step for biological interpretation.
 2. `sample_specificity.tsv`: reporting the supporting read counts for each compactor in input samples.
 
-### Quick Start for running Compactors pipeline:
+#### Quick Start for running Compactors pipeline:
 
 1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=21.10.3`)
 
@@ -50,7 +50,7 @@ After running Compactors, two output files will be generated:
    > - Please check [nf-core/configs](https://github.com/nf-core/configs#documentation) to see if a custom config file to run nf-core pipelines already exists for your Institute. If so, you can simply use `-profile <institute>` in your command. This will enable either `docker` or `singularity` and set the appropriate execution settings for your local compute environment.
    > - If you are using `singularity`, please use the [`nf-core download`](https://nf-co.re/tools/#downloading-pipelines-for-offline-use) command to download images first, before running the pipeline. Setting the [`NXF_SINGULARITY_CACHEDIR` or `singularity.cacheDir`](https://www.nextflow.io/docs/latest/singularity.html?#singularity-docker-hub) Nextflow options enables you to store and re-use the images from a central location for future pipeline runs.
    > - If you are using `conda`, it is highly recommended to use the [`NXF_CONDA_CACHEDIR` or `conda.cacheDir`](https://www.nextflow.io/docs/latest/conda.html) settings to store the environments in a central location for future pipeline runs.
-## 3- Biological interpretation
+### 3- Biological interpretation
 
 
 
