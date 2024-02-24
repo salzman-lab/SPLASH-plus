@@ -1,20 +1,26 @@
 # SPLASH+
 
-![image](https://github.com/salzman-lab/SPLASH-plus/blob/main/SPLASH_plus.png)
-# To be able to run this pipeline, please follow these instructions to configure: https://www.nextflow.io/blog/2021/configure-git-repositories-with-nextflow.html
+![Image of SPLASH+](https://github.com/salzman-lab/SPLASH-plus/blob/main/SPLASH_plus.png)
 
-## Introduction
-<!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
+SPLASH+ is a new analytic method to detect a wide range of biological processes that diversify transcripts, including but not limited to RNA splicing, mutations, RNA editing, and V(D)J recombination inference directly on raw sequencing reads by integrating a micro-assembly and biological interpretation framework with the recently developed [SPLASH](https://doi.org/10.1016/j.cell.2023.10.028) algorithm. SPLASH is a unified reference-free algorithm that performs statistical inference directly on raw sequencing reads. SPLASH+ builds on SPLASH by utilizing new approaches to analyze SPLASH’s output, including a new, reference-free statistical approach for de novo assembly (being called as `Compactors`) as well as a framework for interpretation and annotation by assigning a meaningful biological class to each SPLASH's call. 
 
+## How to run SPLASH+
+SPLASH+ pipeline consists of 3 main steps:
+1. `SPLASH`: to obtain sequences (`anchors`) that are followed by a set of sample-dependent diverse sequences (`targets`)
+2. `Compactors`: for de novo local assembly of sequences called by SPLASH
+3. `Biological interpretation`: to assign a biologically-relevant event (single base pair change, alternative splicing, ...) accounting for the observed sequence diversity.   
+
+## Running SPLASH
+![Image of SPLASH](https://github.com/salzman-lab/SPLASH-plus/blob/main/SPLASH.png)
+
+## Running Compactors
+![Image of Compactor](https://github.com/salzman-lab/SPLASH-plus/blob/main/Compactor.png)
 **nf-compactors** is a pipeline designed to run the seed-based assembly tool, compactors. 
 
 Given a set of seeds (i.e. 'anchors' from SPLASH) and a FASTQ list, compactors analyzes the sequence composition directly to the right of the seeds across the raw FASTQs. Compactors tests the sequence composition at each position to the right of each seed to evaluate whether the nucleotides presented at that position constitute noise or biological signal. This test is applied recursively on read sets, resulting in one or multiple assembled sequences (compactors) for each seed. The resulting assembled sequences are reported with their supporting read counts in `compactor_summary.tsv` and their read counts in individual samples are presented in `sample_specificity.tsv`.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules).
 
-<!-- TODO nf-core: Add full-sized test dataset and amend the paragraph below if applicable -->
-
-On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources. The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/compactors/results).
 
 ## Quick Start
 
@@ -42,31 +48,19 @@ On release, automated continuous integration tests run the pipeline on a full-si
    > - If you are using `conda`, it is highly recommended to use the [`NXF_CONDA_CACHEDIR` or `conda.cacheDir`](https://www.nextflow.io/docs/latest/conda.html) settings to store the environments in a central location for future pipeline runs.
 
 
-## Documentation
-
-________________
-
-## Credits
-
-compactors was originally written by George Henderson and Kaitlin Chaung.
-
-We thank the following people for their extensive assistance in the development of this pipeline: George Henderson, Kaitlin Chaung, Roozbeh Dehghannasiri. 
-
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
-
-## Contributions and Support
-
-If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
 
 
-## Citations
 
-An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
+## Contact
+Please contact Roozbeh Dehghannasiri (rdehghan@stanford.edu).
 
-You can cite the `nf-core` publication as follows:
-
+## Citation
+Dehghannasiri*, R., Henderson*, G., Bierman, R., Chaung, K., Baharav, T., Wang, P., and Salzman, J. [Unsupervised reference-free inference reveals unrecognized regulated transcriptomic complexity in human single cells](https://www.biorxiv.org/content/10.1101/2022.12.06.519414v2), bioRxiv, (2023).
 > **The nf-core framework for community-curated bioinformatics pipelines.**
 >
 > Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.
 >
 > _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).
+
+
+
