@@ -6,17 +6,17 @@ SPLASH+ is a new analytic method to detect a wide range of biological processes 
 
 ## How to run SPLASH+
 SPLASH+ pipeline consists of 3 main steps:
-1. `SPLASH`: to obtain sequences (`anchors`) that are followed by a set of sample-dependent diverse sequences (`targets`)
-2. `Compactors`: for de novo local assembly of sequences called by SPLASH
-3. `Biological interpretation`: to assign a biologically-relevant event (single base pair change, alternative splicing, ...) accounting for the observed sequence diversity.   
+1. [Running SPLASH](https://github.com/salzman-lab/SPLASH-plus/blob/main/README.md#1--splash): to obtain sequences (`anchors`) that are followed by a set of sample-dependent diverse sequences (`targets`)
+2. [Running Compactors](https://github.com/salzman-lab/SPLASH-plus/blob/main/README.md#2--compactors): for de novo local assembly of sequences called by SPLASH
+3. [Running Biological Interpretation](https://github.com/salzman-lab/SPLASH-plus/blob/main/README.md#3--biological-interpretation): to assign a biologically relevant event (single base pair change, alternative splicing, ...) accounting for the observed sequence diversity.   
 
 ### 1- SPLASH
 ![Image of SPLASH](https://github.com/salzman-lab/SPLASH-plus/blob/main/SPLASH.png)
-SPLASH can be run on an input set of fastq files by following the steps in https://github.com/salzman-lab/SPLASH. After running SPLASH, the output file will be a list of significant anchors (we refer to it as `anchors.txt` in this readme), where each anchor is associated with a set of statistically-significant sample-dependent target sequences. `anchors.txt` will then be used in the next step (Compactors) to perform a local de novo assembly and obtain extended sequences for each called anchor to facilitate and improve biological interpretation.  
+SPLASH can be run on an input set of FASTQ files by following the steps in https://github.com/salzman-lab/SPLASH. After running SPLASH, the output file will be a list of significant anchors (we refer to it as `anchors.txt` in this readme), where each anchor is associated with a set of statistically significant sample-dependent target sequences. `anchors.txt` will then be used in the next step (Compactors) to perform a local de novo assembly and obtain extended sequences for each called anchor to facilitate and improve biological interpretation.  
 
 ### 2- Compactors
 ![Image of Compactor](https://github.com/salzman-lab/SPLASH-plus/blob/main/Compactor.png)
-Compactors tests the sequence composition at each position to the right of each seed to evaluate whether the nucleotides presented at that position constitute noise or biological signal. This test is applied recursively on read sets, resulting in one or multiple assembled sequences (compactors) for each called anchor. The compactor step is implemented in a fully-containerized Nextflow pipeline (**nf-compactors**) with minimal installation requirements. 
+Compactors analyze the sequence composition at each position to the right of each seed to evaluate whether the nucleotides presented at that position constitute noise or biological signal. This test is applied recursively on read sets, resulting in one or multiple assembled sequences (compactors) for each called anchor. The compactor step is implemented in a fully containerized Nextflow pipeline (**nf-compactors**) with minimal installation requirements. 
 
 Compactors need two input files:
 1. `anchors.txt`: a single column file containing the list of significant anchors from SPLASH
@@ -44,25 +44,23 @@ After running Compactors, two output files will be generated:
        --outdir <OUTDIR>
    ```
 ### 3- Biological interpretation
-To facilitate downstream analysis of anchors, we provide a postprocessing script `SPLASH_extendor_classification.R`, that can be run on the anchors file generated from the SPLASH run to classify anchors to biologically meaningful events such as alternative splicing, and base pair changes. `SPLASH_extendor_classification.R` needs the following inputs:
+For biological interpretation of called anchors (obtained from step 1) using their assembled compactors (obtained from step 2), we provide a script [SPLASH_plus_classification.R](https://github.com/salzman-lab/SPLASH-plus/blob/main/SPLASH_plus_classification.R) to categorize anchors into biologically meaningful events. Currently, we consider 6 different categories: Single base pair changes, alternative splicing, internal splicing (such as insertions, and deletions), 3'UTR, Centromere, and Repeats. The script needs the following inputs:
 
-- `directory` &mdash; the output directory used for the SPLASH run
-- `which_anchors_file` &mdash; flag to decide which anchor file (after correction or all anchors) to use, could be "after_correction" or "all" 
-- `effect_size_cutoff` &mdash; the effect size cutoff for significant anchors (default 0.2) 
-- `num_samples_cutoff` &mdash; the minimum number of samples for an anchor to be called (default 20)
-- `STAR_executable` &mdash; path to STAR executable file
-- `samtools_executable` &mdash; path to samtools executable file
-- `bedtools_executable` &mdash; path to bedtools executable file
-- `bowtie2_executable` &mdash; path to bowtie2 executable file
-- `STAR_reference` &mdash; path to STAR index files for the reference genome
-- `bowtie2_reference` &mdash; path to bowtie2 index for the reference genome
-- `bowtie2_univec_index` &mdash; path to bowtie2 index for univec
-- `annotated_splice_juncs` &mdash; path to the file containing annotated splice junctions from the reference transcriptome (can be either downloaded or generated from `SPLASH_build.R`)
-- `annotated_exon_boundaries` &mdash; path to the file containing annotated exon boundaries from the reference transcriptome (can be either downloaded or generated from `SPLASH_build.R`)
-- `gene_coords_file` &mdash; path to the file containing gene coordinates from the reference transcriptome (can be either downloaded or generated from `SPLASH_build.R`)
-- `paralogs_file` &mdash; (optional) path to file containing list of paralogous genes from the reference genome
+- `directory`:  Directory for writing output files 
+- `compactor_file`: path to the compactors file `compactor_summary.tsv` generated from the compactors step
+- `STAR_executable`: path to [STAR](https://github.com/alexdobin/STAR) executable file
+- `samtools_executable`: path to [samtools](https://www.htslib.org/) executable file
+- `bedtools_executable`: path to [bedtools](https://bedtools.readthedocs.io/en/latest/) executable file
+- `bowtie2_executable`: path to [bowtie2](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml) executable file
+- `STAR_reference`: path to STAR index files for the reference genome
+- `annotated_splice_juncs`: path to the file containing annotated splice junctions from the reference transcriptome (can be either downloaded or generated from `SPLASH_build.R`)
+- `annotated_exon_boundaries`: path to the file containing annotated exon boundaries from the reference transcriptome (can be either downloaded or generated from `SPLASH_build.R`)
+- `gene_coords_file`: path to the file containing gene coordinates from the reference transcriptome (can be either downloaded or generated from `SPLASH_build.R`)
+- `centromere_annotation_file`: path to the centromere annotation file
+- `repeats_annotation_file`: path to annotation file for repetitive elements
+- `UTR_annotation_file`: path to UTR annotation file
  
-The script will generate a file `classified_anchors.tsv` in the same directory used for SPLASH run, containing significant anchors along with their biological classification and alignment information.
+The script will generate a file `classified_anchors.tsv` in the same directory specified by `directory` input argument. The file contains significant anchors along with their compactors, biological classification, and alignment information.
 
 ## Building index and annotation files needed for running classification script 
 For running the classification script for a given reference genome/transcriptome you first need to obtain a fasta file for the reference genome and a gtf file for the transcriptome annotation. You then need to do the following 3 steps (note that all index/annotation files from these 3 steps should be generated from the same fasta and gtf file):
