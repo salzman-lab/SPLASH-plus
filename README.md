@@ -52,18 +52,29 @@ For biological interpretation of called anchors (obtained from step 1) using the
 - `annotated_splice_juncs`: path to the file containing annotated splice junctions from the reference transcriptome (can be either downloaded or generated from `SPLASH_build.R`)
 - `annotated_exon_boundaries`: path to the file containing annotated exon boundaries from the reference transcriptome (can be either downloaded or generated from `SPLASH_build.R`)
 - `gene_coordinates`: path to the file containing gene coordinates from the reference transcriptome (can be either downloaded or generated from `SPLASH_build.R`)
-- `centromere_annotation_file`: path to the centromere annotation file
-- `repeats_annotation_file`: path to annotation file for repetitive elements
-- `UTR_annotation_file`: path to UTR annotation file
+- `centromere_annotation_file`: (optional) path to the centromere annotation file
+- `repeats_annotation_file`: (optional) path to annotation file for repetitive elements
+- `UTR_annotation_file`: (optional) path to UTR annotation file
  
 The script will generate a file `classified_anchors.tsv` in the same directory specified by the `directory` input argument. The file contains significant anchors along with their compactors, biological classification, and alignment information.
 
 #### Building index and annotation files needed for running classification script 
-For running the classification script for a given reference genome/transcriptome you first need to obtain a fasta file for the reference genome and a gtf file for the transcriptome annotation. You then need to do the following 3 steps (note that all index/annotation files from these 3 steps should be generated from the same fasta and gtf file):
-- **STAR index**: you need [STAR](https://github.com/alexdobin/STAR) index for reference genome. You can use default parameters to build the index: `STAR --runThreadN 4 --runMode genomeGenerate --genomeDir STAR_index_files --genomeFastaFiles $fasta file$ --sjdbGTFfile $gtf file$`
-- **Three annotation files**: three files are needed for annotated exon boundaries, annotated splice sites, and gene coordinates that should be built by running script `SPLASH_build.R`. You need three inputs for `SPLASH_build.R` script: `$gtf_file$` (absolute path to the gtf file), `$hisat2_directory$` (directory containing HISAT2 codes downloaded from [HISAT2 repository](https://github.com/DaehwanKimLab/hisat2), the script assumes that there are two python scripts at: `$hisat2_directory$/extract_exons.py` and `$hisat2_directory$/extract_splice_sites.py`), `$outfile_name$` (the name used for the annotation files that script will generate). The script can be run using the following command:  
+To be able to run `SPLASH_plus_classification.R` for a reference assembly, you need STAR index for reference genome and three annotation files (`annotated_splice_juncs`, `annotated_exon_boundaries`, `gene_coordinates`) for annotated splice junctions, exons, and genes in the reference transcriptome. 
+To build these files, you should obtain a fasta file for the reference genome and a gtf file for the transcriptome annotation. You can then perform the following two steps (note that fasta and gtf files should be from the same assembly as they need to have consistent coordinates, chr names for accurate annotating of anchors):
+- **STAR index**: You can use default parameters to build [STAR](https://github.com/alexdobin/STAR) index: 
+
+`STAR --runThreadN 4 --runMode genomeGenerate --genomeDir STAR_index_files --genomeFastaFiles $fasta file$ --sjdbGTFfile $gtf file$`
+- **Annotation files**: the three files for annotated exon boundaries, annotated splice junctions, and gene coordinates can be built by running a script we have provided [SPLASH_plus_build.R](https://github.com/salzman-lab/SPLASH-plus/blob/main/SPLASH_plus_build.R). `SPLASH_plus_build.R` needs 3 inputs:
+- `$gtf_file$`: absolute path to the gtf file,
+- `$hisat2_directory$`: directory containing HISAT2 codes downloaded from [HISAT2 repository](https://github.com/DaehwanKimLab/hisat2), the script assumes that there are two python scripts at: `$hisat2_directory$/extract_exons.py` and `$hisat2_directory$/extract_splice_sites.py`),
+- `$outfile_name$`: the name used for the annotation files that script will generate.
+
+The `SPLASH_plus_build.R` can be run using the following command:  
 `Rscript SPLASH_build.R $gtf_file$ $hisat2_directory$ $outfile_name$`
-If the script is run successfully, it will generate 3 output annotation files in the same directory as the script: `$outfile_name$_known_splice_sites.txt` (for annotated splice sites), `$outfile_name$_exon_coordinates.bed` (for annotated exon boundaries), and `$outfile_name$_genes.bed` (for annotated gene coordinates)
+If the script finishes successfully, it will generate 3 output annotation files in the same directory as the script: 
+- `$outfile_name$_known_splice_sites.txt` for annotated splice sites (can be used as `annotated_splice_juncs` input for `SPLASH_plus_classification.R`) 
+- `$outfile_name$_exon_coordinates.bed` for annotated exon boundaries (can be used as `annotated_exon_boundaries` input for `SPLASH_plus_classification.R`)
+- `$outfile_name$_genes.bed` for annotated gene coordinates (can be used as `gene_coordinates` input for `SPLASH_plus_classification.R`)
 
 #### Downloading pre-built annotation files for human and mouse genomes:
 The human files were built for both [T2T assembly](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_009914755.1/) and [GRCh38 assembly](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/). The mouse files were built based on [mm39 assembly](https://www.ncbi.nlm.nih.gov/assembly/GCF_000001635.27/). The annotation files can be downloaded using the following links:
