@@ -1,0 +1,2 @@
+The SPLASH+, SpliZ, and Leafcutter needed for the script splash_plus_splicing_benchmarking.R can be downloaded from the link below:
+https://drive.google.com/drive/folders/1imyUvFfCiQvceO5_vpKgW9sPTyzcVOf_?usp=sharing
