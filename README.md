@@ -58,6 +58,8 @@ For biological interpretation of called anchors (obtained from step 1) using the
  
 The script will generate a file `classified_anchors.tsv` in the same directory specified by the `directory` input argument. The file contains significant anchors along with their compactors, biological classification, and alignment information.
 
+## SPLASH+ output file description
+
 #### Building index and annotation files needed for running classification script 
 To be able to run `SPLASH_plus_classification.R` for a reference assembly, you need STAR index for reference genome and three annotation files (`annotated_splice_juncs`, `annotated_exon_boundaries`, `gene_coordinates`) for annotated splice junctions, exons, and genes in the reference transcriptome. 
 To build these files, you should obtain a fasta file for the reference genome and a gtf file for the transcriptome annotation. You can then perform the following two steps (note that fasta and gtf files should be from the same assembly as they need to have consistent coordinates, chr names for accurate annotating of anchors):
