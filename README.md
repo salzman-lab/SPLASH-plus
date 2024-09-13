@@ -10,7 +10,6 @@ SPLASH+ pipeline consists of 3 main steps:
 3. [Running Biological Interpretation](https://github.com/salzman-lab/SPLASH-plus/blob/main/README.md#3--biological-interpretation): to assign a biologically relevant event (single base pair change, alternative splicing, ...) accounting for the observed sequence diversity.   
 
 ### 1- SPLASH
-![Image of SPLASH](https://github.com/salzman-lab/SPLASH-plus/blob/main/SPLASH.png)
 SPLASH can be run on an input set of FASTQ files by following the steps in https://github.com/salzman-lab/SPLASH. After running SPLASH, the output file will be a list of significant anchors (we refer to it as `anchors.txt` in this readme), where each anchor is associated with a set of statistically significant sample-dependent target sequences. `anchors.txt` will then be used in the next step (Compactors) to perform a local de novo assembly and obtain extended sequences for each called anchor to facilitate and improve biological interpretation.  
 
 ### 2- Compactors
