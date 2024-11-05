@@ -38,6 +38,11 @@ After running Compactors, two output files will be generated:
        --anchors_file anchors.txt \
        --outdir <OUTDIR>
    ```
+#### Test run for Compactors pipeline:
+1. We provided test data for a quick run of compactors in `compactor_test_run` folder. 
+2. You first need to download `sim_adipose_1.fq.gz` fastq file from `https://data.broadinstitute.org/Trinity/STAR_FUSION_PAPER/SupplementaryData/sim_reads/sim_50_fastq/` and update its path in `sample_sheet.csv` file
+3. After running the pipeline using the `anchors.txt` file provided in the folder, you should obtain two files `compactor_summary.tsv` and `sample_specificity.tsv` files as given in the folder. 
+
 ### 3- Biological interpretation
 For biological interpretation of called anchors (obtained from step 1) using their assembled compactors (obtained from step 2), we provide a script [SPLASH_plus_classification.R](https://github.com/salzman-lab/SPLASH-plus/blob/main/SPLASH_plus_classification.R) to categorize anchors into biologically meaningful events. Currently, we consider 6 different categories: Single base pair changes, alternative splicing, internal splicing (such as insertions, and deletions), 3'UTR, Centromere, and Repeats. The script needs the following inputs:
 
